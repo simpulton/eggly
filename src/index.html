@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="Eggly">
+<html>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
@@ -14,27 +14,103 @@
     <body>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-3 col-md-2 sidebar" ui-view="categories"></div>
-                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ui-view="bookmarks"></div>
+                <div class="col-sm-3 col-md-2 sidebar">
+                    <a href="#/"><img class="logo" src="assets/img/eggly-logo.png"></a>
+                    <ul class="nav nav-sidebar">
+                        <li>
+                          <a href="#">
+                            Development
+                          </a></li>
+                          <li>
+                          <a href="#">
+                            Design
+                          </a></li>
+                          <li>
+                          <a href="#">
+                            Exercise
+                          </a></li>
+                          <li>
+                          <a href="#">
+                            Humor
+                          </a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <div>
+
+                          <button type="button" class="close">&times;</button>
+                          <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span>
+                          </button>
+                          <a href="http://angularjs.org" target="_blank">AngularJS</a>
+                    </div>
+                    <div>
+
+                          <button type="button" class="close">&times;</button>
+                          <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span>
+                          </button>
+                          <a href="http://angularjs.org" target="_blank">Egghead.io</a>
+                    </div>
+                    <div>
+
+                          <button type="button" class="close">&times;</button>
+                          <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span>
+                          </button>
+                          <a href="http://alistapart.com/" target="_blank">A List Apart</a>
+                    </div>
+                    <div>
+
+                          <button type="button" class="close">&times;</button>
+                          <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span>
+                          </button>
+                          <a href="http://onepagelove.com/" target="_blank">One Page Love</a>
+                    </div>
+                    <div>
+
+                          <button type="button" class="close">&times;</button>
+                          <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span>
+                          </button>
+                          <a href="http://www.mobilitywod.com/" target="_blank">MobilityWOD</a>
+                    </div>
+                    <div>
+
+                          <button type="button" class="close">&times;</button>
+                          <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span>
+                          </button>
+                          <a href="http://robbwolf.com/" target="_blank">Robb Wolf</a>
+                    </div>
+                    <div>
+
+                          <button type="button" class="close">&times;</button>
+                          <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span>
+                          </button>
+                          <a href="http://memebase.cheezburger.com/senorgif" target="_blank">Senor Gif</a>
+                    </div>
+                    <div>
+
+                          <button type="button" class="close">&times;</button>
+                          <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span>
+                          </button>
+                          <a href="http://wimp.com" target="_blank">Wimp</a>
+                    </div>
+                    <div>
+
+                          <button type="button" class="close">&times;</button>
+                          <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span>
+                          </button>
+                          <a href="http://dump.com" target="_blank">Dump</a>
+                    </div>
+                    <hr/>
+
+                    <div>
+                      <button type="button" class="btn btn-link">
+                            <span
+                          class="glyphicon glyphicon-plus"></span>
+                        Create Bookmark
+                      </button>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-animate.min.js"></script>
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
-
-
-        <script src="vendor/angular-ui-router.min.js"></script>
-        <script src="app/eggly-app.js"></script>
-        <script src="app/categories/categories.js"></script>
-        <script src="app/categories/bookmarks/bookmarks.js"></script>
-        <script src="app/categories/bookmarks/edit/bookmarks-edit.js"></script>
-        <script src="app/categories/bookmarks/create/bookmarks-create.js"></script>
-        <script src="app/common/models/bookmarks-model.js"></script>
-        <script src="app/common/models/categories-model.js"></script>
 
     </body>
 </html>
