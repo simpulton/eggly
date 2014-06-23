@@ -69,7 +69,7 @@
     -----------------------------------------------------------------------------
 
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ui-view>
-	
+
 	-----------------------------------------------------------------------------
 	<script src="vendor/angular-ui-router.min.js"></script>
 
@@ -117,14 +117,100 @@
 	})
 
 ;
+
+//-------------------------------------------------------------------------------------------------
+// Create bookmarks submodule
+//-------------------------------------------------------------------------------------------------
+	create folder in app: bookmarks
+	create file in bookmarks: bookmarks.js
+	more bookmarks.tmpl.html from templates folder to bookmarks folder
+	delete templates folder
+
+	/* eggly-app.js */
+	angular.module('Eggly', [
+		'ui.router',
+		'bookmarks'
+	])
+		.config(function ($stateProvider, $urlRouterProvider) {
+			$stateProvider
+				.state('eggly', {
+					url: '',
+					template: '<div ui-view></div>',
+					abstract: true
+				})
+			;
+			$urlRouterProvider.otherwise('/');
+		})
+	;	
+
+	/* bookmarks.js */
+	angular.module('bookmarks', [
+		'ui.router'
+	])
+		.config(function ($stateProvider) {
+			$stateProvider
+				.state('eggly.home', {
+					url: '/',
+					template: '<h1>Welcome to Eggly</h1>'
+				})
+				.state('eggly.design', {
+					url: '/Design',
+					templateUrl: 'app/bookmarks/bookmarks.tmpl.html',
+					controller: function($scope) {
+						$scope.bookmarks = ["A List Apart", "One Page Love"];
+					}
+				})
+				.state('eggly.develop', {
+					url: '/Development',
+					templateUrl: 'app/bookmarks/bookmarks.tmpl.html',
+					controller: function($scope) {
+						$scope.bookmarks = ["AngularJs", "Egghead.io"];
+					}
+				})
+				.state('eggly.exercise', {
+					url: '/Exercise',
+					templateUrl: 'app/bookmarks/bookmarks.tmpl.html',
+					controller: function($scope) {
+						$scope.bookmarks = ["MobilityWOD", "Robb Wolf"];
+					}
+				})
+				.state('eggly.humor', {
+					url: '/Humor',
+					templateUrl: 'app/bookmarks/bookmarks.tmpl.html',
+					controller: 'HumorCtrl'
+				})
+			;
+		})
+
+		.controller('HumorCtrl', function HumorCtrl($scope) {
+			$scope.bookmarks = ["Senor Gif", "Wimp", "Dump"];
+		})
+	;
+
+	/* index.html */
+	<ul class="nav nav-sidebar">
+        <li>
+          <a ui-sref="eggly.develop">
+            Development
+          </a></li>
+          <li>
+          <a ui-sref="eggly.design">
+            Design
+          </a></li>
+          <li>
+          <a ui-sref="eggly.exercise">
+            Exercise
+          </a></li>
+          <li>
+          <a ui-sref="eggly.humor">
+            Humor
+          </a></li>
+    </ul>
+    
 //-------------------------------------------------------------------------------------------------
 // Create categories submodule
 //-------------------------------------------------------------------------------------------------
 
 expand on this
-
-//-------------------------------------------------------------------------------------------------
-// Create bookmarks submodule
-//-------------------------------------------------------------------------------------------------
 
 expand on this
