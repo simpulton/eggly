@@ -38,18 +38,6 @@
 //-------------------------------------------------------------------------------------------------
 	
 	create folder in app: templates
-	create file in templates: hello.tmpl.html
-
-	/* hello.tmpl.html */
-	<h1>Hello, and welcome to Eggly App, the most awesome app ever!</h1>
-
-	create file in templates: users.tmpl.html
-
-	/* users.tmpl.html */
-	<ul ng-repeat="user in users">
-		<li><h1>{{user}}</h1></li>
-	</ul>
-	<a ui-sref="bookmarks">Bookmarks</a>
 
 	create file in templates: bookmarks.tmpl.html
 
@@ -57,10 +45,31 @@
 	<ul ng-repeat="bookmark in bookmarks">
 		<li><h1>{{bookmark}}</h1></li>
 	</ul>
-	<a ui-sref="users">Back</a>
+	<a ui-sref="home">Back</a>
 
 	/* index.html */
+	 <ul class="nav nav-sidebar">
+        <li>
+          <a ui-sref="develop">
+            Development
+          </a></li>
+          <li>
+          <a ui-sref="design">
+            Design
+          </a></li>
+          <li>
+          <a ui-sref="exercise">
+            Exercise
+          </a></li>
+          <li>
+          <a ui-sref="humor">
+            Humor
+          </a></li>
+    </ul>
+    -----------------------------------------------------------------------------
+
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ui-view>
+	
 	-----------------------------------------------------------------------------
 	<script src="vendor/angular-ui-router.min.js"></script>
 
@@ -68,39 +77,46 @@
 	angular.module('Eggly', [
 		'ui.router'
 	])
-		.config(function ($stateProvider, $urlRouterProvider) {
-			$stateProvider
-			.state('index', {
-				url: '/'
-			})
+	.config(function ($stateProvider, $urlRouterProvider) {
+		$stateProvider
 			.state('home', {
-				url: '/home',
-				template: '<h1>Eggly App</h1>'
+				url: '/',
 			})
-			.state('hello', {
-				url: '/hello',
-				templateUrl: 'app/templates/hello.tmpl.html'
-			})
-			.state('users', {
-				url: '/users',
-				templateUrl: 'app/templates/users.tmpl.html',
+			.state('design', {
+				url: '/Design',
+				templateUrl: 'app/templates/bookmarks.tmpl.html',
 				controller: function($scope) {
-					$scope.users = ["Johnny", "Susy", "Luke", "Sarah"];
+					$scope.bookmarks = ["A List Apart", "One Page Love"];
 				}
 			})
-			.state('bookmarks', {
-				url: '/bookmarks',
+			.state('develop', {
+				url: '/Development',
 				templateUrl: 'app/templates/bookmarks.tmpl.html',
-				controller: 'MainCtrl'
+				controller: function($scope) {
+					$scope.bookmarks = ["AngularJs", "Egghead.io"];
+				}
 			})
-			;
-			$urlRouterProvider.otherwise('/');
-		})
+			.state('exercise', {
+				url: '/Exercise',
+				templateUrl: 'app/templates/bookmarks.tmpl.html',
+				controller: function($scope) {
+					$scope.bookmarks = ["MobilityWOD", "Robb Wolf"];
+				}
+			})
+			.state('humor', {
+				url: '/Humor',
+				templateUrl: 'app/templates/bookmarks.tmpl.html',
+				controller: 'HumorCtrl'
+			})
+		;
+		$urlRouterProvider.otherwise('/');
+	})
 
-		.controller('MainCtrl', function($scope) {
-			$scope.bookmarks = ["AngularJs", "Egghead.io", "A List Apart", "One Page Love", "MobilityWOD", "Robb Wolf"];
-		})
-	;
+	.controller('HumorCtrl', function($scope) {
+		$scope.bookmarks = ["Senor Gif", "Wimp", "Dump"];
+	})
+
+;
 //-------------------------------------------------------------------------------------------------
 // Create categories submodule
 //-------------------------------------------------------------------------------------------------

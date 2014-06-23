@@ -3,35 +3,41 @@ angular.module('Eggly', [
 	])
 	.config(function ($stateProvider, $urlRouterProvider) {
 		$stateProvider
-			.state('index', {
-				url: '/'
-			})
 			.state('home', {
-				url: '/home',
-				template: '<h1>Eggly App</h1>'
+				url: '/',
 			})
-			.state('hello', {
-				url: '/hello',
-				templateUrl: 'app/templates/hello.tmpl.html'
-			})
-			.state('users', {
-				url: '/users',
-				templateUrl: 'app/templates/users.tmpl.html',
+			.state('design', {
+				url: '/Design',
+				templateUrl: 'app/templates/bookmarks.tmpl.html',
 				controller: function($scope) {
-					$scope.users = ["Johnny", "Susy", "Luke", "Sarah"];
+					$scope.bookmarks = ["A List Apart", "One Page Love"];
 				}
 			})
-			.state('bookmarks', {
-				url: '/bookmarks',
+			.state('develop', {
+				url: '/Development',
 				templateUrl: 'app/templates/bookmarks.tmpl.html',
-				controller: 'MainCtrl'
+				controller: function($scope) {
+					$scope.bookmarks = ["AngularJs", "Egghead.io"];
+				}
+			})
+			.state('exercise', {
+				url: '/Exercise',
+				templateUrl: 'app/templates/bookmarks.tmpl.html',
+				controller: function($scope) {
+					$scope.bookmarks = ["MobilityWOD", "Robb Wolf"];
+				}
+			})
+			.state('humor', {
+				url: '/Humor',
+				templateUrl: 'app/templates/bookmarks.tmpl.html',
+				controller: 'HumorCtrl'
 			})
 		;
 		$urlRouterProvider.otherwise('/');
 	})
 
-	.controller('MainCtrl', function($scope) {
-		$scope.bookmarks = ["AngularJs", "Egghead.io", "A List Apart", "One Page Love", "MobilityWOD", "Robb Wolf"];
+	.controller('HumorCtrl', function($scope) {
+		$scope.bookmarks = ["Senor Gif", "Wimp", "Dump"];
 	})
 
 ;
