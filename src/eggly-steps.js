@@ -53,6 +53,10 @@
 	;
 
 	/* --------------- index.html --------------- */
+	<body ng-controller="MainCtrl">
+
+	====================================
+
 	<ul class="nav nav-sidebar">
         <li ng-repeat="category in categories">
           <a href="#">
@@ -341,6 +345,8 @@
 // ======================================================
 
 	/* --------------- add to eggly-app.js --------------- */
+	$scope.isEditing = {};
+
 	function toggleEditing(id) {
       $scope.isEditing[id] = $scope.isEditing[id] ? !$scope.isEditing[id] : true;
       populateForm(id);
@@ -355,6 +361,7 @@
 	  		$scope.bookmarks[key] = $scope.bookmark;
 	  	}
 	  });
+	  $scope.setCurrentCategory($scope.currentCategory);
 	  $scope.cancelEditing($scope.bookmark.id);
     }
 	function populateForm(id) {
