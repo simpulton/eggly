@@ -37,6 +37,7 @@ angular.module('Eggly', [
 		  		$scope.bookmarks[key] = $scope.bookmark;
 		  	}
 		  });
+		  $scope.setCurrentCategory($scope.currentCategory);
 		  $scope.cancelEditing($scope.bookmark.id);
 	    }
 	    function populateForm(id) {
