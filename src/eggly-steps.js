@@ -6,6 +6,10 @@
 	create file in app: eggly-app.js
 
 	/* --------------- index.html --------------- */
+	<html ng-app="Eggly">
+
+	=============================
+	
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-animate.min.js"></script>
