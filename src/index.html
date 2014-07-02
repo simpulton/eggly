@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html ng-app="Eggly">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
@@ -11,106 +11,82 @@
         <link rel="stylesheet" href="assets/css/eggly.css">
         <link rel="stylesheet" href="assets/css/animations.css">
     </head>
-    <body>
+    <body ng-controller="MainCtrl">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-3 col-md-2 sidebar">
                     <a href="#/"><img class="logo" src="assets/img/eggly-logo.png"></a>
                     <ul class="nav nav-sidebar">
-                        <li>
-                          <a href="#">
-                            Development
-                          </a></li>
-                          <li>
-                          <a href="#">
-                            Design
-                          </a></li>
-                          <li>
-                          <a href="#">
-                            Exercise
-                          </a></li>
-                          <li>
-                          <a href="#">
-                            Humor
-                          </a></li>
+                        <li ng-repeat="category in categories">
+                          <a href="#" ng-click="setCurrentCategory(category.name)">
+                            {{category.name}}
+                          </a>
+                        </li>
                     </ul>
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <div>
+                    <div ng-repeat="bookmark in filteredBookmarks">
 
                           <button type="button" class="close">&times;</button>
-                          <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span>
+                          <button type="button" ng-click="toggleEditing(bookmark.id)" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span>
                           </button>
-                          <a href="http://angularjs.org" target="_blank">AngularJS</a>
-                    </div>
-                    <div>
+                          <a href="{{bookmark.url}}" target="_blank">{{bookmark.title}}</a>
+                          <div ng-show="isEditing[bookmark.id] == true">   
+                            <h4>Editing {{bookmark.title}}</h4>
 
-                          <button type="button" class="close">&times;</button>
-                          <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span>
-                          </button>
-                          <a href="http://angularjs.org" target="_blank">Egghead.io</a>
-                    </div>
-                    <div>
-
-                          <button type="button" class="close">&times;</button>
-                          <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span>
-                          </button>
-                          <a href="http://alistapart.com/" target="_blank">A List Apart</a>
-                    </div>
-                    <div>
-
-                          <button type="button" class="close">&times;</button>
-                          <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span>
-                          </button>
-                          <a href="http://onepagelove.com/" target="_blank">One Page Love</a>
-                    </div>
-                    <div>
-
-                          <button type="button" class="close">&times;</button>
-                          <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span>
-                          </button>
-                          <a href="http://www.mobilitywod.com/" target="_blank">MobilityWOD</a>
-                    </div>
-                    <div>
-
-                          <button type="button" class="close">&times;</button>
-                          <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span>
-                          </button>
-                          <a href="http://robbwolf.com/" target="_blank">Robb Wolf</a>
-                    </div>
-                    <div>
-
-                          <button type="button" class="close">&times;</button>
-                          <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span>
-                          </button>
-                          <a href="http://memebase.cheezburger.com/senorgif" target="_blank">Senor Gif</a>
-                    </div>
-                    <div>
-
-                          <button type="button" class="close">&times;</button>
-                          <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span>
-                          </button>
-                          <a href="http://wimp.com" target="_blank">Wimp</a>
-                    </div>
-                    <div>
-
-                          <button type="button" class="close">&times;</button>
-                          <button type="button" class="btn btn-link"><span class="glyphicon glyphicon-pencil"></span>
-                          </button>
-                          <a href="http://dump.com" target="_blank">Dump</a>
+                            <form class="edit-form" role="form" ng-submit="updateBookmark()" novalidate>
+                                <div class="form-group">
+                                    <label>Bookmark Title</label>
+                                    <input type="text" class="form-control" ng-model="editedBookmark.title" placeholder="Enter title">
+                                </div>
+                                <div class="form-group">
+                                    <label>Bookmark URL</label>
+                                    <input type="text" class="form-control" ng-model="editedBookmark.url" placeholder="Enter URL">
+                                </div>
+                                <button type="submit" class="btn btn-info btn-lg">Save</button>
+                                <button type="button" class="btn btn-default btn-lg pull-right" ng-click="cancelEditing(bookmark.id)">Cancel</button>
+                            </form>
+                          </div>
                     </div>
                     <hr/>
 
-                    <div>
-                      <button type="button" class="btn btn-link">
+                    <div ng-if="currentCategory">
+                      <button ng-click="toggleCreating()" type="button" class="btn btn-link">
                             <span
                           class="glyphicon glyphicon-plus"></span>
                         Create Bookmark
                       </button>
                     </div>
+
+                    <div class="createBookmark">
+                      <form class="create-form" ng-show="isCreating" role="form" ng-submit="createBookmark()" novalidate>
+                          <div class="form-group">
+                              <label for="newBookmarkTitle">Bookmark Title</label>
+                              <input type="text" class="form-control" id="newBookmarkTitle" ng-model="newBookmark.title" placeholder="Enter title">
+                          </div>
+                          <div class="form-group">
+                              <label for="newBookmarkURL">Bookmark URL</label>
+                              <input type="text" class="form-control" id="newBookmarkURL" ng-model="newBookmark.url" placeholder="Enter URL">
+                          </div>
+                          <button type="submit" class="btn btn-info btn-lg">Create</button>
+                          <button type="button" class="btn btn-default btn-lg pull-right" ng-click="cancelCreating()">Cancel</button>
+                      </form>
+                  </div>
+
                 </div>
             </div>
         </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-animate.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+
+        <script src="app/eggly-app.js"></script>
+        <script src="app/common/models/categories-model.js"></script>
+        <script src="app/common/models/bookmarks-model.js"></script>
 
     </body>
 </html>
