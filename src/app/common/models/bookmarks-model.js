@@ -17,15 +17,15 @@ angular.module('eggly.models.bookmarks', [
       return bookmarks;
     }
 
+    function findBookmark(bookmarkId) {
+        return _.find(bookmarks, function (bookmark) {
+            return bookmark.id === parseInt(bookmarkId, 10);
+        })
+    }
+
     bookmarksModel.getBookmarks = function () {
       return (bookmarks) ? $q.when(bookmarks) : $http.get(URLS.FETCH).then(cacheBookmarks);
     };
-
-    function findBookmark(bookmarkId) {
-      return _.find(bookmarks, function (bookmark) {
-        return bookmark.id === parseInt(bookmarkId, 10);
-      })
-    }
 
     bookmarksModel.getBookmarkById = function (bookmarkId) {
       var deferred = $q.defer();
@@ -54,12 +54,6 @@ angular.module('eggly.models.bookmarks', [
     bookmarksModel.deleteBookmark = function (bookmark) {
       _.remove(bookmarks, function (b) {
         return b.id == bookmark.id;
-      });
-    };
-
-    bookmarksModel.getBookmarksForCategory = function (category) {
-      _.filter(bookmarks, function (b) {
-        return b.category == category;
       });
     };
   })

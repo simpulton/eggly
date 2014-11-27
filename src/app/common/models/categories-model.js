@@ -32,7 +32,6 @@ angular.module('eggly.models.categories', [
 
     categoriesModel.setCurrentCategory = function (category) {
       currentCategory = category;
-      return currentCategory;
     };
 
     categoriesModel.createCategory = function (category) {
