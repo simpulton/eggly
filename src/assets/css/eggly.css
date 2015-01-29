@@ -1,7 +1,6 @@
 html,
 body {
     background-color: #D5DBD8;
-    overflow: hidden;
     width: 100%;
     height: 100%;
     color: #4F534E;
@@ -37,10 +36,6 @@ a:hover {
     text-decoration: none;
 }
 
-/*
-https://kuler.adobe.com/Some-kind-of-hero-color-theme-3745773
-*/
-
 .sub-header {
     padding-bottom: 10px;
     border-bottom: 1px solid #EEE;
@@ -61,13 +56,18 @@ https://kuler.adobe.com/Some-kind-of-hero-color-theme-3745773
     padding: 0px;
 }
 
-.active {
+.sidebar .active {
     background-color: #D5DBD8;
 }
 
-.active > a {
+.sidebar .active > a {
     text-decoration: none;
     color: #2B2828;
+}
+
+.main .active span,
+.main .active > a {
+    color: #5bc0de;
 }
 
 .editing > button {

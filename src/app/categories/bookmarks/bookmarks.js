@@ -1,43 +1,38 @@
-angular.module('bookmarks', [
-  'categories.bookmarks.edit',
-  'categories.bookmarks.create',
-  'eggly.models.categories',
-  'eggly.models.bookmarks'
+angular.module('categories.bookmarks', [
+    'categories.bookmarks.create',
+    'categories.bookmarks.edit',
+    'eggly.models.categories',
+    'eggly.models.bookmarks'
 ])
-  .config(function ($stateProvider) {
-    $stateProvider
-      .state('eggly.categories.bookmarks', {
-        url: 'categories/:category',
-        views: {
-          'bookmarks@': {
-            controller: 'BookmarksCtrl',
-            templateUrl: 'app/categories/bookmarks/bookmarks.tmpl.html'
-          }
-        }
-      })
-    ;
-  })
-  .controller('BookmarksCtrl', function BookmarksCtrl($scope, $stateParams, bookmarks, categories) {
-    categories.setCurrentCategory();
+    .config(function ($stateProvider) {
+        $stateProvider
+            .state('eggly.categories.bookmarks', {
+                url: 'categories/:category',
+                //target the named 'ui-view' in ROOT (eggly) state named 'bookmarks'
+                //to show bookmarks for a specific category
+                views: {
+                    'bookmarks@': {
+                        templateUrl: 'app/categories/bookmarks/bookmarks.tmpl.html',
+                        controller: 'BookmarksListCtrl as bookmarksListCtrl'
+                    }
+                }
+            })
+        ;
+    })
+    .controller('BookmarksListCtrl', function ($stateParams, CategoriesModel, BookmarksModel) {
+        var bookmarksListCtrl = this;
 
-    if ($stateParams.category) {
-      categories.getCategoryByName($stateParams.category).then(function (category) {
-        categories.setCurrentCategory(category);
-      })
-    }
+        CategoriesModel.setCurrentCategory($stateParams.category);
 
-    bookmarks.getBookmarks()
-      .then(function (result) {
-        $scope.bookmarks = result;
-      });
+        BookmarksModel.getBookmarks()
+            .then(function (bookmarks) {
+                bookmarksListCtrl.bookmarks = bookmarks;
+            });
 
-    $scope.getCurrentCategory = categories.getCurrentCategory;
-    $scope.getCurrentCategoryName = categories.getCurrentCategoryName;
-    $scope.isSelectedBookmark = function (bookmarkId) {
-      return $stateParams.bookmarkId == bookmarkId;
-    };
+        bookmarksListCtrl.getCurrentCategory = CategoriesModel.getCurrentCategory;
+        bookmarksListCtrl.getCurrentCategoryName = CategoriesModel.getCurrentCategoryName;
+        bookmarksListCtrl.deleteBookmark = BookmarksModel.deleteBookmark;
+    })
 
-    $scope.deleteBookmark = bookmarks.deleteBookmark;
-  })
 ;
 
